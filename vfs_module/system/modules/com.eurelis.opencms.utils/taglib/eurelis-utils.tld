@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+  
+ <description>Taglib Eurelis Utils</description>
+ <display-name>Eurelis Utils</display-name>
+ <tlib-version>1.0</tlib-version>
+ <short-name>utils</short-name>
+ <uri>http://www.eurelis.com/taglib/opencms/utils</uri>
+ 
+ <tag>
+  <description>Test tag, display "TAG TEST OK"</description>
+  <name>test</name>
+  <tag-class>com.eurelis.opencms.utils.tag.CmsJspTagTest</tag-class>
+  <body-content>empty</body-content>
+ </tag>
+ 
+ <tag>
+  <description>Tag used to get a label from a property. It need the name of the property, and optionally the file, the locale (in case this is configured in the property) to read, and a default variable value. Localize with the schema : locale=title|locale=title. Example : fr=Mon titre|en=My title</description>
+  <name>localizeProperty</name>
+  <tag-class>com.eurelis.opencms.utils.tag.CmsJspTagLocalizeProperty</tag-class>
+  <body-content>empty</body-content>
+  <attribute>
+   <name>file</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>name</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>locale</name>
+   <required>false</required>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>default</name>
+   <required>false</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>var</name>
+   <required>false</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+ </tag>
+ 
+ <tag>
+  <description>Tag used to display the Title property, localized with schema : locale:title|locale:title. Example : fr=Mon titre|en:My title</description>
+  <name>localizeTitle</name>
+  <tag-class>com.eurelis.opencms.utils.tag.CmsJspTagLocalizeTitle</tag-class>
+  <body-content>empty</body-content>
+  <attribute>
+   <name>file</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>locale</name>
+   <required>false</required>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>default</name>
+   <required>false</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+ </tag>
+ 
+ <tag>
+  <description>Tag used to get the HREF to use for a folder resource in navigation</description>
+  <name>navigationHref</name>
+  <tag-class>com.eurelis.opencms.utils.tag.CmsJspTagNavigationHref</tag-class>
+  <body-content>empty</body-content>
+  <attribute>
+   <name>file</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>recursive</name>
+   <required>false</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.Boolean</type>
+  </attribute>
+ </tag>
+ 
+ <tag>
+  <description>Tag used to get the label to use for a resource link</description>
+  <name>navigationLabel</name>
+  <tag-class>com.eurelis.opencms.utils.tag.CmsJspTagNavigationLabel</tag-class>
+  <body-content>empty</body-content>
+  <attribute>
+   <name>file</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>custom</name>
+   <required>false</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>default</name>
+   <required>false</required>
+   <rtexprvalue>true</rtexprvalue>
+   <type>java.lang.String</type>
+  </attribute>
+ </tag>
+ 
+ <tag>
+   <description>This tag enables access to some system information like OpenCms version etc, and custom Meta.</description>
+   <name>info</name>
+   <tag-class>com.eurelis.opencms.utils.tag.CmsJspTagInfo</tag-class>
+   <body-content>empty</body-content>
+   <attribute>
+       <name>property</name>
+       <required>true</required>
+       <rtexprvalue>true</rtexprvalue>            
+   </attribute>
+ </tag>
+ 
+ <tag>
+		<description>Tag used to order a list of CmsResource or CmsCategory</description>
+  	<name>orderListByLocalizedProperty</name>
+  	<tag-class>com.eurelis.opencms.utils.tag.CmsJspTagOrderListByLocalizedProperty</tag-class>
+  	<body-content>empty</body-content>
+  	<attribute>
+   		<name>var</name>
+   		<required>true</required>
+   		<rtexprvalue>true</rtexprvalue>
+   		<type>java.lang.String</type>
+  	</attribute>
+  	<attribute>
+  		<name>locale</name>
+   		<required>false</required>
+   		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
+  	<attribute>
+  		<name>list</name>
+   		<required>true</required>
+   		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
+  	<attribute>
+  		<name>name</name>
+   		<required>true</required>
+   		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
+ </tag>
+ 
+ <function>
+  <description>Test if the provided uri is an existing internal file.</description>
+   <name>existsUri</name>
+   <function-class>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions</function-class>
+   <function-signature>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions existsUri(java.lang.Object,java.lang.Object)</function-signature>
+ </function>
+ 
+ <function>
+  <description>Test if the provided uri is an existing internal file, and return his contents as String.</description>
+   <name>fileContentAsString</name>
+   <function-class>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions</function-class>
+   <function-signature>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions fileContentAsString(java.lang.Object,java.lang.Object)</function-signature>
+ </function>
+ 
+ <function>
+   	<description>Return href link attribute, depending on the type id of the resource.</description>
+   	<name>getHref</name>
+   	<function-class>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions</function-class>
+   	<function-signature>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions getHref(java.lang.Object,java.lang.Object,java.lang.Object)</function-signature>
+ </function>
+ 
+ <function>
+   	<description>Return the image path rescaled.</description>
+   	<name>getRescaledImagePath</name>
+   	<function-class>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions</function-class>
+   	<function-signature>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions getRescaledImagePath(java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+ </function>
+ 
+ <function>
+   	<description>Return _blank or empty, depending on the type id of the resource.</description>
+   	<name>getTarget</name>
+   	<function-class>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions</function-class>
+   	<function-signature>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions getTarget(java.lang.Object,java.lang.Object)</function-signature>
+ </function>
+ 
+ <function>
+   	<description>Return the string, with \n replaced by br.</description>
+   	<name>replaceTextarea</name>
+   	<function-class>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions</function-class>
+   	<function-signature>com.eurelis.opencms.utils.function.CmsJspUtilsFunctions replaceTextarea(java.lang.Object)</function-signature>
+ </function>
+ 
+</taglib>

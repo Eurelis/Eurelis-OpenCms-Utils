@@ -107,7 +107,7 @@
 		<fileset dir="${folder.distlib}" includes="*.jar" />
 	</path>
 	<target name="1 Compilation du jar" description="Compilation des classes, creation du jar dans le repertoire d'archives.">
-		<javac srcdir="${folder.src}" destdir="${folder.bin}" classpathref="compil.classpath" debug="off" />
+		<javac srcdir="${folder.src}" destdir="${folder.bin}" classpathref="compil.classpath" debug="off" source="${compiler.jdk.version}" target="${compiler.jdk.version}" />
 		<jar jarfile="${folder.build.jars}/${jar.file}" basedir="${folder.bin}" >
         	<manifest>
            		<attribute name="Built-By" value="${module.authorname}" />

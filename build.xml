@@ -5,9 +5,9 @@
 	<property name="project.name" value="Eurelis" />
 	<property name="module.name" value="com.eurelis.opencms.utils" />
 	<property name="module.version" value="1.0.1.6" />
-		
+
 	<property name="folder.package" value="com/eurelis/opencms/utils" />
-	<property name="jar.version" value="0.0.5" />
+	<property name="jar.version" value="${module.version}" />
 	<property name="jdk.version" value="6" />
 	<property name="compiler.jdk.version" value="1.6" />
 	<property name="jarexists" value="true" />
@@ -25,7 +25,7 @@
 	<!-- ressources compilation -->
 	<property name="file.resourcetypes" value="etc/resourcetypes.xml" />
 	<property name="file.explorertypes" value="etc/explorertypes.xml" />
-	
+
 	<property name="folder.dist" value="dist" />
 	<property name="folder.etc" value="etc" />
 	<property name="folder.distlib" value="etc/distlib" />
@@ -33,13 +33,13 @@
 	<property name="folder.bin" value="bin" />
 	<property name="folder.vfs" value="vfs_module" />
 	<property name="folder.src" value="src" />
-	
+
 	<!-- build -->
 	<property name="folder.build" value="build" />
 	<property name="folder.build.jars" value="build/jars" />
 	<property name="folder.build.classes" value="build/classes" />
 	<property name="folder.build.modules" value="build/modules" />
-	
+
 	<!-- module -->
 	<property name="module.creator" value="Admin" />
 	<property name="module.project" value="Offline" />
@@ -67,7 +67,7 @@
 		               along with this program.  If not, see http://www.gnu.org/licenses/." />
 	<property name="modulepath.zip" value="${folder.build.modules}/${module.name}_${module.version}.zip" />
 	<property name="modulename.zip" value="${module.name}_${module.version}.zip" />
-	
+
 	<!-- jar -->
 	<property name="folder.dist.lib" value="${folder.dist}/system/modules/${module.name}/lib" />
 	<property name="jar.name" value="${module.name}" />
@@ -126,7 +126,7 @@
 		</copy>
 		<echo message="Ressources copiees" />
 	</target>
-	<target name="2 Distribution des ressources et du jar" description="Distribution des ressources et du jar." if="jarexists">
+	<target name="2 Distribution des ressources et du jar" description="Distribution des ressources et du jar." if="jarexists" depends="1 Compilation du jar">
 		<delete dir="${folder.dist}" />
 		<mkdir dir="${folder.dist}" />
 		<copy todir="${folder.dist}">
@@ -146,7 +146,7 @@
 	</target>
 
 	<!-- CONSTRUCTION DU MANIFEST -->
-	<target name="3 Creation Manifest" depends="2 Distribution">
+	<target name="3 Creation Manifest" depends="2 Distribution des ressources et du jar">
 		<manifest generateuuids="${flag.uuids}"
 			distfolder="${folder.dist}"
                        srcfolder="${folder.vfs}"

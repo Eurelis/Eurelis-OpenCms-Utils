@@ -8,7 +8,24 @@
 <% actionbean.init(pageContext, request, response); %>
 </jsp:useBean>
 <%
+  final int maxThreshold = 300;
+  final int minThreshold = 200;
+  final float pctMemory = 100*(1 - (float)Runtime.getRuntime().freeMemory() / Runtime.getRuntime().maxMemory());
+  int alertLevel = 80;
+  String alertLevelString = request.getParameter("alertLevel");
+  if(alertLevelString  != null){
+    try{
+      alertLevel = Integer.parseInt(alertLevelString);
+    }catch(NumberFormatException e){}
+  }
+  
+  java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+  int daemonThreadCount = threadBean.getDaemonThreadCount();
 
+  boolean inError = pctMemory >= alertLevel || daemonThreadCount >= maxThreshold;
+  if (inError) {
+    actionbean.setStatus(503);
+  }
 
   /*
   * Read help Parameter 
@@ -64,7 +81,6 @@
   boolean use_500 = false;
   boolean displayConfig = false;
   boolean displayAlert = true;
-  int alertLevel = 80;
   
   try{
     /* 
@@ -90,13 +106,6 @@
     if(displayAlertString  != null){
       try{ 
         displayAlert = Boolean.parseBoolean(displayAlertString);  
-      }catch(NumberFormatException e){}     
-    }
-    
-    String alertLevelString = request.getParameter("alertLevel");     
-    if(alertLevelString  != null){
-      try{ 
-        alertLevel = Integer.parseInt(alertLevelString);  
       }catch(NumberFormatException e){}     
     }
     
@@ -227,23 +236,10 @@
           }finally{
             conn.close();
           }
-          
           responseTime.put(poolName,String.valueOf(timeAfterRequest-timeBeforeRequest));
           dbStatus.put(poolName,valueAttribut);
-          
-          
-          
-          
           }
         }
-        
-         
-       
-    
-    
-    
-    
-    
   }catch(Exception e){
     anError = true;
     error = e.getMessage(); 
@@ -255,8 +251,9 @@
 <report>
   <memory>
     <free-memory value="<%= Runtime.getRuntime().freeMemory() %>" comment="The amount of free memory in the Java Virtual Machine."/>
-    <total-memory value="<%= Runtime.getRuntime().totalMemory() %>" comment="The total amount of memory in the Java virtual machine."/>
-    <max-memory value="<%= Runtime.getRuntime().maxMemory() %>" comment="The maximum amount of memory that the Java virtual machine will attempt to use."/>
+    <total-memory value="<%= Runtime.getRuntime().totalMemory() %>" comment="The total amount of memory in the Java virtual Machine."/>
+    <max-memory value="<%= Runtime.getRuntime().maxMemory() %>" comment="The maximum amount of memory that the Java virtual Machine will attempt to use."/>
+    <usage value="<%=pctMemory%>" comment="The memory usage percentage in the Java Virtual Machine (should be <<%=alertLevel%>)."/>
   </memory>
 <% if(poolURLs != null && !poolURLs.isEmpty() && sqlManager != null){ %>
   <pools>

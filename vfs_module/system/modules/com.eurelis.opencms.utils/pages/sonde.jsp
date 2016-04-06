@@ -119,26 +119,6 @@
      * Updated for OpenCms 8.0.2
      *
      */
-    
-      
-    /* BEFORE */
-    /*
-    myconfig = new CmsConfigurationManager(OpenCms.getSystemInfo().getAbsoluteRfsPathRelativeToWebInf(CmsSystemInfo.FOLDER_CONFIG));
-    
-    ExtendedProperties configuration = null;
-        try {
-            configuration = CmsPropertyUtils.loadProperties(OpenCms.getSystemInfo().getConfigurationFileRfsPath());
-            myconfig.setConfiguration(configuration);       
-        
-        } catch (Exception e) {
-          anError = true;
-      error = e.getMessage();     
-        }
-    
-        configParameter = myconfig.getConfiguration();
-        */
-        
-        /* AFTER */
         myconfig = new CmsConfigurationManager(OpenCms.getSystemInfo().getAbsoluteRfsPathRelativeToWebInf(CmsSystemInfo.FOLDER_CONFIG_DEFAULT));
     
         CmsParameterConfiguration propertyConfiguration = null;
@@ -163,7 +143,7 @@
     String poolsNameProperty = (String) configParameter.get("db.pools");
         String[] poolNames = poolsNameProperty.split(",");
         for(int i =0; i< poolNames.length; i++){
-          if(poolNames[i] != null){
+          if(poolNames[i] != null && "default".equals(poolNames[i])){
             poolsName.add(poolNames[i]);
           }
         }

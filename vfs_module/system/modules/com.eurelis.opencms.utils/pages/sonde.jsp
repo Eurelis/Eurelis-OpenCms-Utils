@@ -10,7 +10,7 @@
 <%
   final int maxThreshold = 300;
   final int minThreshold = 200;
-  final float pctMemory = 100*(1 - (float)Runtime.getRuntime().freeMemory() / Runtime.getRuntime().maxMemory());
+  final float pctMemory = 100*(1 - (float)Runtime.getRuntime().freeMemory() / Runtime.getRuntime().totalMemory());
   int alertLevel = 80;
   String alertLevelString = request.getParameter("alertLevel");
   if(alertLevelString  != null){
@@ -22,7 +22,7 @@
   java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
   int daemonThreadCount = threadBean.getDaemonThreadCount();
 
-  boolean inError = pctMemory >= alertLevel || daemonThreadCount >= maxThreshold;
+  boolean inError = /*pctMemory >= alertLevel ||*/ daemonThreadCount >= maxThreshold;
   if (inError) {
     actionbean.setStatus(503);
   }
@@ -233,7 +233,7 @@
     <free-memory value="<%= Runtime.getRuntime().freeMemory() %>" comment="The amount of free memory in the Java Virtual Machine."/>
     <total-memory value="<%= Runtime.getRuntime().totalMemory() %>" comment="The total amount of memory in the Java virtual Machine."/>
     <max-memory value="<%= Runtime.getRuntime().maxMemory() %>" comment="The maximum amount of memory that the Java virtual Machine will attempt to use."/>
-    <usage value="<%=pctMemory%>" comment="The memory usage percentage in the Java Virtual Machine (should be <<%=alertLevel%>)."/>
+    <usage value="<%=pctMemory%>" comment="The memory usage percentage in the Java Virtual Machine (should be less than <%=alertLevel%>)."/>
   </memory>
 <% if(poolURLs != null && !poolURLs.isEmpty() && sqlManager != null){ %>
   <pools>
